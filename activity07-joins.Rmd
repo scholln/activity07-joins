@@ -11,7 +11,7 @@ knitr::opts_chunk$set(error = TRUE)
 ## Data and packages
 
 Load the entirety of the `{tidyverse}`.
-Be sure to avoid printing out any unnecessary information and give the code chunk a meaningful name.
+Be sure to avoid printing out any unnecessary information and give the code chunk a meaningful name (hint: we explored R chunk options in a past activity).
 
 
 
@@ -52,7 +52,6 @@ str(dennys)
 str(laquinta)
 str(states)
 ```
-
 
 #### Denny's data
 
@@ -128,28 +127,32 @@ Remember to specify your `by` columns.
 
 #### A Brief Aside
 
-Another way to do this would be to create a new variable (called, says, `country`), then filter on this new variable.
+Nothing for you to do here, but I wanted to show you some alternative approaches.
+Another way to do what you previously did would be to create a new variable, then filter on this new variable.
 Remember that `mutate` creates new variables.
-Then `dplyr::case_when` function is a nice way to do multiple if-else statements.
-For example, your instructor could see if there are any Denny's in any the states that your instructor has lived in:
+So the `dplyr::case_when` function is a nice way to do multiple if-else statements.
+
+Using a different example, suppose that Bradford wanted to see if there are any Denny's in any the states that they have lived in.
+We can then use this `mutate` and `case_when` process as follows.
 
 ```{r}
 dennys %>%
-  mutate(bradford_lived = case_when(
-    state %in% c("MI", "NC", "IL", "ME") ~ "Yes",
-    TRUE ~ "No"))
+  mutate(bradford_lived = case_when(state %in% c("MI", "NC", "IL", "ME") ~ "Yes",
+                                    TRUE ~ "No"))
 ```
 
-`case_when` looks to see if any of the `dennys$state`s are in the vector of state abbreviations that I have lived (i.e., `c("MI", "NC", "IL", "ME")`).
+`case_when` looks to see if any of the `dennys$state`s are in the vector of state abbreviations provided (i.e., `c("MI", "NC", "IL", "ME")`).
 If this is a `TRUE` statement, then `bradford_lived` will be set to `"Yes"`.
 Otherwise, if the values is not a missing value (i.e., `NA`), the `TRUE ~ "NO"` line sets `bradford_lived` to `"No`.
 If the values are missing, they remain missing in `bradford_lived`.
 Without the `TRUE ~ "No"` line, all values except for "MI", "NC", "IL", and "ME" would be set to missing values.
 
-Note that we could have also used `!(state %in% c("MI", "NC", "IL", "ME")) ~ "NO"`.
+Talk with your team members on why we would want to differentiate between labeling states as `"No"` and as missing values.
+
+Note that we could have also used `!(state %in% c("MI", "NC", "IL", "ME")) ~ "No"` (i.e., state not in those listed).
 However, this would be slightly inefficient to type as `TRUE ~ "No"` captures this.
 
-To create a new variable called `country` where if the state is in the US, `country` is set to `"United States"` we would then do:
+Back to our current activity, to create a new variable called `country` where if the state is in the US, `country` is set to `"United States"` we would then do:
 
 ```{r case_when}
 dennys %>% 
@@ -282,7 +285,7 @@ Note that longitude should be plotted on the *x*-axis and latitude on the *y*-ax
 **Response**:
 
 
-### More with visualizing
+### Challenge: More with visualizing
 
 The following two items ask you to create visualizations.
 These should follow best practices such as informative titles, axis labels, etc.

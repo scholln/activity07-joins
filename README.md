@@ -14,12 +14,12 @@ In this activity, you will:
 
 ## ☑️ Task 1: The Workflow
 
+![fork](README-img/fork-icon.png) **Fork** this repo and clone it to a
+new [RStudio Project](https://rstudio.gvsu.edu/).
+
 Remember that more detailed directions can be found in [Task 1 of
 Activity
-4](https://github.com/gvsu-sta518/activity04-data-pipelines#%EF%B8%8F-task-1-the-workflow).
-
-![fork](README-img/fork-icon.png) **Fork** this repo and clone it to a
-new [RStudio Project](https://rstudio.gvsu.edu/)
+6](https://github.com/gvsu-sta518/activity06-pivoting#%EF%B8%8F-task-1-the-workflow).
 
 <img src="README-img/noun_pause.png" alt="pause" width = "20"/>
 <b>Planned Pause Point</b>: If you have any questions, contact your
@@ -44,8 +44,16 @@ neighbor(s) have completed your `.Rmd` files.
 
 ## ☑️ Task 3: Reflection
 
-Take 5 minutes and pick one or two things that are still unclear. What
-do you need to do to better understand these items?
+Take 5 minutes to write a reflection on what you feel confident in and
+what you need to spend some time better understanding. What is one thing
+you can do (or seek help with) to help clarify your current
+misunderstandings?
 
-**Next**: Activity 8 will explore three special variable types: strings,
-factors, and datetimes.
+Also, reflect on the past activities and how they align to our [Learning
+Objectives](https://docs.google.com/document/d/1vUo-GudmRnxBKLNijjh7yJwR4d1-J69TghWlyAV9qbs/edit?usp=sharing).
+What can you now do? Where do this tasks/skills belong with respect to
+an objective? Do we need to add any more example sub-objectives? Leave
+your thoughts as comments in the previously linked Google Doc.
+
+**Next**: Activity 8 will allow you to explore one or more of three
+special variable types in R: strings, factors, and datetimes.
