@@ -13,6 +13,13 @@ knitr::opts_chunk$set(error = TRUE)
 Load the entirety of the `{tidyverse}`.
 Be sure to avoid printing out any unnecessary information and give the code chunk a meaningful name (hint: we explored R chunk options in a past activity).
 
+```{r tidy}
+
+
+knitr::opts_chunk$set(error = TRUE)
+library(tidyverse)
+
+```
 
 
 In this activity we will explore joining information that is contained in multiple data files.
@@ -31,6 +38,13 @@ Read each of the three files using `here::here` in combination with the appropri
 Assign each file to a meaningful object name (e.g., `dennys`,`laquinta`, and `states`), be sure to avoid printing any unnecessary information.
 Give your code chunk a meaningful name.
 
+```{r reading the files}
+
+dennys <- read_csv(here::here("data", "dennys.csv"))
+laquinta <-read_csv(here::here("data", "laquinta.csv"))
+states <-read_csv(here::here("data", "states.csv"))
+
+```
 
 
 
@@ -94,14 +108,14 @@ Look at the websites that the data come from (linked above).
 Are there any La Quinta’s locations outside of the US?
 What about Denny’s?
 
-**Response**:
+**Yes they are, they have locations in almost all places of the world except for the contient of Africa**:
 
 
 If we wanted to do this using the datasets, would we need to ?
 Don’t worry about implementing this yet, you only need to brainstorm some ideas.
 Include at least one idea as your answer, but you are welcome to write down a few options too.
 
-**Response**:
+**We would need to find a common key, foreign key or identical observations**:
 
 
 ### Preparing to Join
@@ -113,15 +127,26 @@ To do so, *filter* the Denny’s locations for observations where state is *not 
 Do not assign this to anything; we only want to see if we need to be aware of non-US cases.
 If there are any non-US locations, specify where these are.
 
+```{r Denny's in USA}
+
+filter(dennys, !state %in% c(states$abbreviation))
+
+
+```
 
 
 
-**Response**:
+**I did a quick google search to confirm but yes it looks like there are denny's locations outside of the US in Canada, Puerto Rico and Indonesia**:
 
 
 Now do this again, but using `anti_join`.
 To do so, take the Denny's locations and anti-join this with the states dataset.
 Remember to specify your `by` columns.
+
+```{r first anti join}
+anti_join(dennys, states, by = c("state" = "name"))
+
+```
 
 
 
@@ -135,7 +160,7 @@ So the `dplyr::case_when` function is a nice way to do multiple if-else statemen
 Using a different example, suppose that Bradford wanted to see if there are any Denny's in any the states that they have lived in.
 We can then use this `mutate` and `case_when` process as follows.
 
-```{r}
+```{r bradford my guy}
 dennys %>%
   mutate(bradford_lived = case_when(state %in% c("MI", "NC", "IL", "ME") ~ "Yes",
                                     TRUE ~ "No"))
@@ -168,6 +193,12 @@ dennys %>%
 
 Determine if La Quinta has any locations that are outside of the US.
 
+```{r now time for Laquinta}
+
+filter(laquinta, !state %in% c(states$abbreviation))
+```
+
+
 
 
 
@@ -176,6 +207,27 @@ Determine if La Quinta has any locations that are outside of the US.
 For the rest of this activity, we will work with the data from the United States *only*.
 All Denny's locations in our file are in the US so we do not need to worry about updating this object, but you do need to do some work on the `laquinta` data.
 Create a new object called `laquinta_us` that only contains the locations inside the US.
+
+
+```{r laquinta_us}
+
+laquinta_us <- semi_join(laquinta, states, by = c("state" = "abbreviation"))
+
+
+
+```
+
+
+```{r fewest dennys}
+
+dennys %>%
+  count(state) %>%
+  arrange(n)
+
+ 
+
+
+```
 
 
 
@@ -188,20 +240,30 @@ Which US state(s) has/ve the fewest Denny's location?
 
 
 
-**Response**:
+**Deleware**:
 
 
 Which US state(s) has/ve the fewest La Quinta locations?
 
 
+```{r fewest locations}
+
+laquinta_us %>%
+  count(state) %>%
+  arrange(n)
+
+```
 
 
-**Response**:
+
+
+
+**That is Maine**:
 
 
 Is this surprising to you? Why or why not?
 
-**Response**:
+**Yeah it makes sense, Maine is one of the whitest states in the united states and probably don't like spicy food**:
 
 
 ### Locations per thousand square miles
